@@ -20,11 +20,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span className="leading-tight">
               <span className="block font-headline text-[17px] font-semibold tracking-tight">
-                Noshline
+                Lukchang Move
               </span>
-              <span className="block text-[11px] font-medium text-muted-foreground">
-                Support
-              </span>
+              <span className="block text-[11px] font-medium text-muted-foreground">Support</span>
             </span>
           </Link>
           <ThemeToggle />

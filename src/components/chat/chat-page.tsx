@@ -22,7 +22,7 @@ const WELCOME: ChatMessage = {
   id: "welcome",
   role: "assistant",
   content:
-    "Hello — I can answer Noshline FAQ questions, or help you create a support ticket for an order issue. What do you need?",
+    "Hello — I can answer Lukchang Move FAQ questions, or help you create a support ticket for an order issue. What do you need?",
 };
 
 export function ChatPage() {
@@ -130,10 +130,7 @@ export function ChatPage() {
           </Sheet>
         </div>
 
-        <div
-          ref={scroller}
-          className="min-h-0 flex-1 overflow-y-auto px-1 py-2"
-        >
+        <div ref={scroller} className="min-h-0 flex-1 overflow-y-auto px-1 py-2">
           <div className="mx-auto flex max-w-2xl flex-col gap-3">
             {messages.map((message) => (
               <MessageBubble key={message.id} message={message} />

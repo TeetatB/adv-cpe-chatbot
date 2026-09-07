@@ -1,10 +1,8 @@
 import { FAQ_ITEMS } from "./faq";
 
-const FAQ_BLOCK = FAQ_ITEMS.map((item) => `Q: ${item.question}\nA: ${item.answer}`).join(
-  "\n\n",
-);
+const FAQ_BLOCK = FAQ_ITEMS.map((item) => `Q: ${item.question}\nA: ${item.answer}`).join("\n\n");
 
-export const SYSTEM_PROMPT = `You are a helpful support assistant for Noshline, a food delivery app.
+export const SYSTEM_PROMPT = `You are a helpful support assistant for Lukchang Move, Delivery app.
 
 You have ONLY two allowed jobs:
 1. Answer FAQ questions using ONLY the information in the FAQ section below.
