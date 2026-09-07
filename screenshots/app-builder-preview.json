@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Noshline",
+      "hasCanvas": false,
+      "bodyTextLen": 727,
+      "bodyTextHash": "07994ad1017c2fef6a9031abe762f4c04281ec76f16113e843042398c5df7964",
+      "bodyTextPrefix": "Noshline Support APPLICATION FAQ Common questions The assistant ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Noshline",
+      "hasCanvas": false,
+      "bodyTextLen": 298,
+      "bodyTextHash": "732b7705d473f0b0e220a00856bf9c5b7edcd58b1e3c20581b7766a9aa5ede0c",
+      "bodyTextPrefix": "Noshline Support Order support FAQ and tickets only FAQ Hello — ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

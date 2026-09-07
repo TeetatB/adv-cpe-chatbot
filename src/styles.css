@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--ios-bg);
+  --color-foreground: var(--ios-fg);
+  --color-card: var(--ios-card);
+  --color-muted: var(--ios-muted);
+  --color-muted-foreground: var(--ios-muted-fg);
+  --color-border: var(--ios-border);
+  --color-primary: #8c52ff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--ios-card);
+  --color-secondary-foreground: var(--ios-fg);
+  --color-accent: #ff9f0a;
+  --color-accent-foreground: #1c1c1e;
+  --color-success: #00d084;
+  --color-success-foreground: #003322;
+  --color-destructive: #ff3b30;
+  --color-ring: #8c52ff;
+  --radius: 1.75rem;
+  --font-sans: "SF Pro Text", "Inter", "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "SF Pro Display", "Inter", "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --motion-quick: 150ms;
+  --motion-fast: 250ms;
+}
+
+:root {
+  --ios-bg: #f2f2f7;
+  --ios-fg: #1c1c1e;
+  --ios-card: #ffffff;
+  --ios-muted: #e5e5ea;
+  --ios-muted-fg: #8e8e93;
+  --ios-border: color-mix(in oklab, #1c1c1e 10%, transparent);
+  --glass-fill: color-mix(in oklab, #ffffff 62%, transparent);
+  --glass-stroke: color-mix(in oklab, #ffffff 72%, transparent);
+  --glass-highlight: color-mix(in oklab, #ffffff 80%, transparent);
+  --blob-a: color-mix(in oklab, #8c52ff 38%, transparent);
+  --blob-b: color-mix(in oklab, #00d084 28%, transparent);
+  --blob-c: color-mix(in oklab, #ff9f0a 22%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --ios-bg: #1c1c1e;
+    --ios-fg: #f2f2f7;
+    --ios-card: #2c2c2e;
+    --ios-muted: #3a3a3c;
+    --ios-muted-fg: #8e8e93;
+    --ios-border: color-mix(in oklab, #ffffff 14%, transparent);
+    --glass-fill: color-mix(in oklab, #2c2c2e 58%, transparent);
+    --glass-stroke: color-mix(in oklab, #ffffff 18%, transparent);
+    --glass-highlight: color-mix(in oklab, #ffffff 28%, transparent);
+    --blob-a: color-mix(in oklab, #8c52ff 46%, transparent);
+    --blob-b: color-mix(in oklab, #00d084 26%, transparent);
+    --blob-c: color-mix(in oklab, #ff9f0a 20%, transparent);
+  }
+}
+
+html.dark,
+html[data-theme="dark"] {
+  --ios-bg: #1c1c1e;
+  --ios-fg: #f2f2f7;
+  --ios-card: #2c2c2e;
+  --ios-muted: #3a3a3c;
+  --ios-muted-fg: #8e8e93;
+  --ios-border: color-mix(in oklab, #ffffff 14%, transparent);
+  --glass-fill: color-mix(in oklab, #2c2c2e 58%, transparent);
+  --glass-stroke: color-mix(in oklab, #ffffff 18%, transparent);
+  --glass-highlight: color-mix(in oklab, #ffffff 28%, transparent);
+  --blob-a: color-mix(in oklab, #8c52ff 46%, transparent);
+  --blob-b: color-mix(in oklab, #00d084 26%, transparent);
+  --blob-c: color-mix(in oklab, #ff9f0a 20%, transparent);
+}
+
+html.light {
+  --ios-bg: #f2f2f7;
+  --ios-fg: #1c1c1e;
+  --ios-card: #ffffff;
+  --ios-muted: #e5e5ea;
+  --ios-muted-fg: #8e8e93;
+  --ios-border: color-mix(in oklab, #1c1c1e 10%, transparent);
+  --glass-fill: color-mix(in oklab, #ffffff 62%, transparent);
+  --glass-stroke: color-mix(in oklab, #ffffff 72%, transparent);
+  --glass-highlight: color-mix(in oklab, #ffffff 80%, transparent);
+  --blob-a: color-mix(in oklab, #8c52ff 38%, transparent);
+  --blob-b: color-mix(in oklab, #00d084 28%, transparent);
+  --blob-c: color-mix(in oklab, #ff9f0a 22%, transparent);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--ios-bg);
+    color: var(--ios-fg);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-headline);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.scene-wash {
+  background:
+    radial-gradient(1200px 640px at 12% -10%, var(--blob-a), transparent 58%),
+    radial-gradient(900px 520px at 92% 8%, var(--blob-b), transparent 55%),
+    radial-gradient(700px 480px at 70% 100%, var(--blob-c), transparent 58%),
+    var(--ios-bg);
+}
+
+.glass {
+  background: var(--glass-fill);
+  backdrop-filter: blur(28px) saturate(1.6);
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  border: 1px solid var(--glass-stroke);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 10px 40px color-mix(in oklab, #000 8%, transparent);
+}
+
+.glass-strong {
+  background: color-mix(in oklab, var(--glass-fill) 88%, var(--ios-card));
+  backdrop-filter: blur(36px) saturate(1.7);
+  -webkit-backdrop-filter: blur(36px) saturate(1.7);
+  border: 1px solid var(--glass-stroke);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 14px 48px color-mix(in oklab, #000 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
