@@ -4,72 +4,83 @@ export type FaqItem = {
   answer: string;
 };
 
+// Tier 1 เท่านั้น: หัวข้อที่ AI ตอบเองจบได้ทันทีตาม
+// AI Assistant Q&A Guideline — Lukchang Move (ส่วนที่ 1: ผู้ส่งพัสดุ, ส่วนที่ 2: คนขับ)
+// หัวข้อ Tier 2A/2B/3/3-N ทั้งหมดต้องเปิด support ticket และดูรายละเอียดใน system-prompt.ts
 export const FAQ_ITEMS: FaqItem[] = [
+  // ส่วนที่ 1: ฝั่งผู้ส่งพัสดุ (Sender) — Tier 1
   {
-    id: "track",
-    question: "How do I track my order?",
+    id: "send_howto",
+    question: "สมัครสมาชิก/เลือกขนาดพัสดุ/ดูราคาประเมิน ทำอย่างไร",
     answer:
-      "Open the app, go to the Orders tab, and select your active order to see real-time tracking and estimated arrival time.",
+      "สมัครสมาชิกได้ง่ายๆ ค่ะ กดปุ่ม 'เข้าสู่ระบบ/สมัครสมาชิก' หน้าแรก กรอกเบอร์โทรและยืนยัน OTP ได้เลย ส่วนการส่งพัสดุ หลังล็อกอินให้เลือกประเภทพัสดุ → ระบุขนาด/จำนวน/จุดหมาย → เลือกขนาดรถ → เลือกสถานที่รับ-ส่ง ระบบจะแสดงราคาประเมินให้อัตโนมัติก่อนยืนยันค่ะ",
   },
   {
-    id: "address",
-    question: "How can I change my delivery address?",
+    id: "send_policy",
+    question: "ยกเลิกออเดอร์/พัสดุต้องห้าม/คืนเงิน มีนโยบายอย่างไร",
     answer:
-      "You can only change the address before the restaurant starts preparing the order. Go to your active order and tap Edit Address. If the option is not available, the order can no longer be modified.",
+      "สามารถยกเลิกได้ก่อนคนขับมารับพัสดุโดยไม่มีค่าใช้จ่าย หากยกเลิกหลังคนขับรับงานแล้วอาจมีค่าธรรมเนียมตามเงื่อนไข ส่วนพัสดุที่ห้ามส่ง ได้แก่ ของผิดกฎหมาย วัตถุอันตราย/ไวไฟ และสิ่งของที่กฎหมายควบคุม สำหรับการคืนเงิน โดยทั่วไประบบจะดำเนินการคืนภายใน 3-7 วันทำการ ขึ้นกับช่องทางชำระเงินค่ะ",
   },
   {
-    id: "late",
-    question: "What should I do if my order is late?",
+    id: "send_status",
+    question: "ดูสถานะออเดอร์ปัจจุบันได้อย่างไร",
     answer:
-      "Check the live tracking in the app first. If the order is significantly delayed, create a support ticket in this chat.",
+      "เปิดแอปแล้วไปที่หน้าติดตามออเดอร์ได้เลยค่ะ ระบบจะแสดงสถานะล่าสุด ชื่อคนขับ และตำแหน่งแบบ real-time พร้อมเวลาถึงโดยประมาณ (ETA) หากต้องการให้ช่วยเช็คออเดอร์ที่ระบุ พิมพ์หมายเลขออเดอร์มาในแชทได้เลยค่ะ",
   },
   {
-    id: "cancel",
-    question: "How do I cancel an order?",
+    id: "send_payment",
+    question: "ช่องทางชำระเงินที่รองรับมีอะไรบ้าง",
     answer:
-      "You can cancel an order for free before the restaurant starts preparing it. Go to your active order and tap Cancel Order. After preparation starts, cancellation may not be possible.",
+      "รองรับการชำระเงิน 3 ช่องทางค่ะ: บัตรเครดิต/เดบิต, PromptPay และ Wallet ในแอป เลือกได้ตอนหน้ายืนยันและชำระเงินก่อนระบบเริ่มค้นหาคนขับค่ะ",
   },
   {
-    id: "fees",
-    question: "Why was I charged a service fee or delivery fee?",
+    id: "send_pricing",
+    question: "ทำไมราคาประเมินเปลี่ยนไป ราคาคำนวณจากอะไรบ้าง",
     answer:
-      "Service fees and delivery fees are shown clearly before you place the order. They help cover platform and delivery costs and may vary by location and order size.",
+      "ราคาประเมินคำนวณจากระยะทาง น้ำหนัก/ขนาดพัสดุ ประเภทรถที่เลือก และช่วงเวลา (อาจมีค่าธรรมเนียมช่วงเร่งด่วน) หากแก้ไขขนาด/จำนวนพัสดุหรือจุดหมายหลังดูราคาครั้งแรก ระบบจะคำนวณราคาใหม่ให้อัตโนมัติค่ะ",
   },
   {
-    id: "promo",
-    question: "How do I apply a promo code?",
+    id: "send_troubleshoot",
+    question: "แอปค้าง/กดปุ่มไม่ได้/ไม่ได้รับ OTP ทำอย่างไร",
     answer:
-      "On the checkout screen, tap Add Promo Code, enter the code, and apply it before placing the order. Promo codes cannot be added after the order is placed.",
+      "ขอโทษด้วยค่ะที่ทำให้ไม่สะดวก ลองทำตามนี้ก่อนนะคะ: 1) ปิดแอปแล้วเปิดใหม่ 2) เช็คสัญญาณอินเทอร์เน็ต 3) อัปเดตแอปเป็นเวอร์ชันล่าสุด หากยังไม่ได้ผล พิมพ์ 'ยังแก้ไม่ได้' บอกฉันได้เลยค่ะ จะแจ้งทีมเทคนิคให้ตรวจสอบต่อค่ะ",
   },
   {
-    id: "tip",
-    question: "Can I tip the courier?",
+    id: "send_schedule",
+    question: "นัดส่งล่วงหน้าได้กี่วัน จองรถล่วงหน้าได้ไหม",
     answer:
-      "Yes. You can add a tip during checkout or after the order is delivered through the order details page.",
+      "นัดส่งล่วงหน้าได้ค่ะ เลือกวันและช่วงเวลาที่ต้องการตอนขั้นตอนยืนยันออเดอร์ ระบบจะจับคู่คนขับให้ล่วงหน้าและแจ้งเตือนคุณก่อนถึงเวลานัดหมาย (ดูจำนวนวันสูงสุดที่จองล่วงหน้าได้จากตัวเลือกวันที่ในหน้าจองค่ะ)",
+  },
+  // ส่วนที่ 2: ฝั่งคนขับ (Driver) — Tier 1
+  {
+    id: "driver_howto",
+    question: "รับงานยังไง กดยืนยันส่งมอบตรงไหน",
+    answer:
+      "เมื่อมีงานเข้ามาระบบจะแจ้งเตือนงานที่เหมาะกับรถของคุณ กดปุ่ม 'รับงาน' เพื่อเริ่ม จากนั้นนำทางไปรับพัสดุ ติดต่อผู้ส่งผ่านแชท/โทร ถ่ายรูปยืนยันสภาพพัสดุก่อนส่ง แล้วเดินทางไปยังจุดหมาย เมื่อถึงให้ลูกค้าเซ็นรับหรือถ่ายรูปยืนยันการส่งมอบเป็นอันเสร็จค่ะ",
   },
   {
-    id: "support",
-    question: "How do I contact support?",
+    id: "driver_commission",
+    question: "ค่าคอมมิชชั่นคิดยังไง เงินเข้าทุกวันไหน",
     answer:
-      "You can create a support ticket in this chat, or go to Help in the app menu.",
+      "ค่าตอบแทนคำนวณจากราคาค่าส่งหลังหักค่าคอมมิชชั่นแพลตฟอร์มตามอัตราที่ระบุในโปรไฟล์คนขับของคุณค่ะ รอบการโอนเงินเป็นไปตามรอบที่แอปกำหนดและเข้าบัญชีที่ผูกไว้กับโปรไฟล์คนขับ ดูรายละเอียดยอดได้ที่หน้า 'รายได้' ในแอปค่ะ",
   },
   {
-    id: "payment",
-    question: "What payment methods are accepted?",
+    id: "driver_gps",
+    question: "GPS จับตำแหน่งไม่ได้ แอปค้างตอนกำลังส่งงาน",
     answer:
-      "We accept major credit and debit cards, and other local payment methods available in your region. You can manage payment methods in the Account section.",
+      "ลองทำตามนี้ก่อนนะคะ: 1) เปิด-ปิด GPS/Location ในเครื่องใหม่ 2) ปิดแอปแล้วเปิดใหม่ 3) เช็คสัญญาณอินเทอร์เน็ต 4) อัปเดตแอปเป็นเวอร์ชันล่าสุด หากยังไม่หาย พิมพ์ 'ยังแก้ไม่ได้' บอกฉันได้เลยค่ะ จะแจ้งทีมเทคนิคให้ดูแลต่อค่ะ",
   },
   {
-    id: "profile",
-    question: "How do I update my phone number or email?",
+    id: "driver_area",
+    question: "รับงานนอกเขตจังหวัดได้ไหม เงื่อนไขพื้นที่ให้บริการ",
     answer:
-      "Go to Account, then Profile, and edit your phone number or email address.",
+      "ปัจจุบันระบบจะแจ้งเตือนเฉพาะงานในพื้นที่ให้บริการและตรงกับประเภทรถของคุณเท่านั้นค่ะ หากต้องการขยายพื้นที่รับงาน สามารถปรับได้ที่หน้า 'Setting' ของแอปค่ะ",
   },
 ];
 
 export const SUGGESTED_PROMPTS = [
-  "How do I track my order?",
-  "How do I cancel an order?",
-  "My order is missing items",
-  "How do I apply a promo code?",
+  "ออเดอร์ของฉันสถานะอะไร",
+  "ยกเลิกออเดอร์ยังไง",
+  "พัสดุมาถึงแล้วแต่แตก ขอเงินคืนได้ไหม",
+  "ค่าคอมมิชชั่นคิดยังไง",
 ];

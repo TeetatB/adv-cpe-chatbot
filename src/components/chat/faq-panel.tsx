@@ -8,13 +8,13 @@ export function FaqPanel({
   return (
     <aside className="flex h-full flex-col">
       <p className="mb-1 text-[11px] font-semibold tracking-[0.08em] text-primary uppercase">
-        Application FAQ
+        คำถามที่พบบ่อย
       </p>
       <h2 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
-        Common questions
+        หัวข้อยอดฮิต
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        The assistant answers only these topics, or helps you open a ticket.
+        ผู้ช่วยตอบได้เฉพาะหัวข้อเหล่านี้ หรือช่วยเปิดตั๋วแจ้งปัญหาให้ได้ค่ะ
       </p>
       <ul className="mt-5 flex flex-1 flex-col gap-2 overflow-y-auto pb-2">
         {FAQ_ITEMS.map((item) => (
