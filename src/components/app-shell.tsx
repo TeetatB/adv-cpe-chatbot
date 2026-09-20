@@ -22,7 +22,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="block font-headline text-[17px] font-semibold tracking-tight">
                 Lukchang Move
               </span>
-              <span className="block text-[11px] font-medium text-muted-foreground">Support</span>
+              <span className="block text-[11px] font-medium text-muted-foreground">
+                ศูนย์ช่วยเหลือ
+              </span>
             </span>
           </Link>
           <ThemeToggle />
@@ -35,11 +37,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-30 px-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <div className="pointer-events-auto glass mx-auto flex h-16 max-w-xs items-center justify-around rounded-full px-2">
-          <TabLink to="/" active={pathname === "/"} label="Chat" icon={MessageCircle} />
+          <TabLink to="/" active={pathname === "/"} label="แชท" icon={MessageCircle} />
           <TabLink
             to="/tickets"
             active={pathname.startsWith("/tickets")}
-            label="Tickets"
+            label="ตั๋ว"
             icon={Ticket}
           />
         </div>

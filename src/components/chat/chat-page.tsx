@@ -16,13 +16,15 @@ type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   ticketId?: string;
+  source?: "faq" | "llm";
+  faqConfidence?: number;
 };
 
 const WELCOME: ChatMessage = {
   id: "welcome",
   role: "assistant",
   content:
-    "Hello — I can answer Lukchang Move FAQ questions, or help you create a support ticket for an order issue. What do you need?",
+    "สวัสดีค่ะ ฉันตอบคำถามที่พบบ่อยของ Lukchang Move หรือช่วยเปิดตั๋วแจ้งปัญหาเกี่ยวกับออเดอร์ให้ได้ค่ะ วันนี้ต้องการให้ช่วยเรื่องอะไรคะ",
 };
 
 export function ChatPage() {
@@ -73,7 +75,7 @@ export function ChatPage() {
       if (parsed.ticket) {
         const ticket = addTicket(parsed.ticket);
         ticketId = ticket.id;
-        toast.success(`Ticket ${ticket.id} created`);
+        toast.success(`เปิดตั๋ว ${ticket.id} เรียบร้อยแล้ว`);
       }
       setMessages((curr) => [
         ...curr,
@@ -82,6 +84,8 @@ export function ChatPage() {
           role: "assistant",
           content: parsed.visible,
           ticketId,
+          source: result.source,
+          faqConfidence: result.source === "faq" ? result.confidence : undefined,
         },
       ]);
     } catch {
@@ -90,7 +94,7 @@ export function ChatPage() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content: "Something went wrong sending that message. Please try again.",
+          content: "เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้งค่ะ",
         },
       ]);
     } finally {
@@ -114,8 +118,10 @@ export function ChatPage() {
       <section className="flex min-h-0 flex-1 flex-col">
         <div className="mb-3 flex items-center justify-between gap-3 px-1">
           <div>
-            <p className="font-headline text-[17px] font-semibold text-foreground">Order support</p>
-            <p className="text-xs text-muted-foreground">FAQ and tickets only</p>
+            <p className="font-headline text-[17px] font-semibold text-foreground">
+              ศูนย์ช่วยเหลือออเดอร์
+            </p>
+            <p className="text-xs text-muted-foreground">ตอบเฉพาะ FAQ และเปิดตั๋วแจ้งปัญหาเท่านั้น</p>
           </div>
           <Sheet open={faqOpen} onOpenChange={setFaqOpen}>
             <SheetTrigger asChild>
@@ -124,7 +130,7 @@ export function ChatPage() {
                 FAQ
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" title="FAQ">
+            <SheetContent side="left" title="คำถามที่พบบ่อย">
               <FaqPanel onPick={pickFaq} />
             </SheetContent>
           </Sheet>
@@ -164,10 +170,10 @@ export function ChatPage() {
             <Input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="Ask an FAQ or describe an order issue"
+              placeholder="ถามคำถามที่พบบ่อย หรืออธิบายปัญหาของออเดอร์"
               disabled={pending}
               maxLength={2000}
-              aria-label="Message"
+              aria-label="ข้อความ"
               className="h-11 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
             />
             <Button
@@ -177,7 +183,7 @@ export function ChatPage() {
               className="rounded-full"
             >
               <Send />
-              <span className="sr-only">Send</span>
+              <span className="sr-only">ส่ง</span>
             </Button>
           </div>
         </form>
@@ -188,8 +194,22 @@ export function ChatPage() {
 
 function MessageBubble({ message }: { message: ChatMessage }) {
   const mine = message.role === "user";
+  // เหนือเกณฑ์นี้ถือว่าค่อนข้างมั่นใจ ไม่ต้องเตือนผู้ใช้เพิ่ม
+  // ต่ำกว่านี้ (แต่ยังผ่าน threshold ที่ยอมรับคำตอบ) ให้แสดง hint สั้นๆ แทนตัวเลขดิบ
+  // เพื่อไม่ให้ผู้ใช้ทั่วไปต้องตีความ % เอง
+  const isLowConfidenceFaqMatch =
+    message.source === "faq" &&
+    typeof message.faqConfidence === "number" &&
+    message.faqConfidence < 0.6;
+
   return (
     <div className={cn("flex flex-col gap-2", mine ? "items-end" : "items-start")}>
+      {message.source === "faq" ? (
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-medium text-primary">
+          <BookOpen className="size-3" />
+          คำตอบสำเร็จรูปจาก FAQ
+        </span>
+      ) : null}
       <div
         className={cn(
           "max-w-[min(100%,36rem)] px-4 py-3 text-sm leading-relaxed",
@@ -200,13 +220,18 @@ function MessageBubble({ message }: { message: ChatMessage }) {
       >
         {message.content}
       </div>
+      {isLowConfidenceFaqMatch ? (
+        <p className="max-w-[min(100%,36rem)] text-[11px] text-muted-foreground">
+          หากคำตอบนี้ไม่ตรงกับสิ่งที่ถาม พิมพ์อธิบายเพิ่มเติมได้เลยค่ะ
+        </p>
+      ) : null}
       {message.ticketId ? (
         <Link
           to="/tickets"
           className="glass inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium text-foreground"
         >
           <Ticket className="size-3.5 text-success" />
-          Ticket {message.ticketId} saved
+          บันทึกตั๋ว {message.ticketId} แล้ว
         </Link>
       ) : null}
     </div>
